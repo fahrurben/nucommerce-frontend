@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { Toaster } from "@/components/ui/toaster"
 import moment from 'moment'
 import { useAuth } from './AuthContext.jsx'
 
@@ -19,6 +20,7 @@ const Root = () => {
         <Link to='/'>Nucommerce</Link>
       </div>
       <Outlet />
+      <Toaster />
     </div>
   );
 };

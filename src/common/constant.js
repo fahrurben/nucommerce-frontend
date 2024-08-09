@@ -6,3 +6,4 @@ export const EDITING = 'editing'
 export const LOADING = 'loading'
 
 export const authUrl = '/token/'
+export const categoryUrl = '/categories/'

@@ -11,14 +11,17 @@ import {
 
 import { Input } from "@/components/ui/input"
 
-const TextFormField = ({form, name, label, type}) => {
+const TextFormField = ({form, name, label, type = 'text', required = false}) => {
   return (
     <FormField
       control={form.control}
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel>
+            {label}
+            {required && <span className="text-red-500"> *</span>}
+          </FormLabel>
           <FormControl>
             <Input placeholder={label} type={type} {...field} />
           </FormControl>

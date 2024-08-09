@@ -12,13 +12,11 @@ const AuthProvider = ({ children }) => {
   })
 
   const setTokenDetails = (tokenDetails) => {
-    console.log(tokenDetails.expired.valueOf())
     setTokenDetails_(tokenDetails)
   }
 
   useEffect(() => {
     const { token, expired } = tokenDetails
-
     if (token) {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
       localStorage.setItem('token', token)

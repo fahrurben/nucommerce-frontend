@@ -13,6 +13,7 @@ import '@radix-ui/themes/styles.css'
 import Login from './routes/auth/login.jsx'
 import { Theme } from '@radix-ui/themes'
 import AuthProvider from './routes/AuthContext.jsx'
+import CategoryList from './routes/category/list.jsx'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
     path: '/',
     element: <Root/>,
     children: [
+      {
+        path: 'categories/',
+        element: <CategoryList />,
+      },
     ],
   },
 ])

@@ -37,12 +37,12 @@ const Login = () => {
   const navigate = useNavigate()
 
   const onSubmit = async (formData) => {
-    let data = null
+    let response = null
     try {
       setStatus(LOADING)
-      data = await postData(authUrl, formData)
+      response = await postData(authUrl, formData)
       setTokenDetails({
-        token: data.access,
+        token: response.data.access,
         expired: moment().add(1, 'hours').valueOf()
       })
       navigate('/')

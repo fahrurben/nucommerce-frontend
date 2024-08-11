@@ -20,7 +20,7 @@ const Root = () => {
         },
         {
           'title': 'Product',
-          'url': '/product/create',
+          'url': '/products/',
         }
       ]
     }

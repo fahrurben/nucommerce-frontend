@@ -12,7 +12,7 @@ import {
   INITIAL,
   LOADING, productUrl,
 } from '../../common/constant.js'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getData, patchData, postData } from '../../common/ApiHelper.js'
 import SelectFormField from '../../components/form/SelectFormField.jsx'
 import { Input } from "@/components/ui/input"
@@ -40,6 +40,7 @@ import { Button } from '@/components/ui/button'
 import { useToast } from "@/components/ui/use-toast"
 
 const variantSchema = z.object({
+  id: z.number().optional(),
   name: z.string().min(3, {
     message: "Name must be minimal 3 characters.",
   }),
@@ -58,7 +59,7 @@ const formSchema = z.object({
   variant_set: z.array(variantSchema),
 })
 
-const CreateProduct = () => {
+const EditProduct = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -75,6 +76,7 @@ const CreateProduct = () => {
       }],
     },
   })
+  let { id } = useParams()
   const [status, setStatus] = useState(INITIAL)
   const [error, setError] = useState("")
   const navigate = useNavigate()
@@ -83,11 +85,19 @@ const CreateProduct = () => {
   const { fields, append, remove } = useFieldArray({ control: form.control, name: "variant_set" });
   const { toast } = useToast()
 
+  useEffect(() => {
+    getData(productUrl + id).then((response) => {
+      form.reset({
+        ...response.data
+      })
+    })
+  }, [])
+
   const onSubmit = async (formData) => {
     let response = null
     try {
       setStatus(LOADING)
-      response = await postData(productUrl, formData)
+      response = await patchData(productUrl + id + '/', formData)
       toast({
         title: "Success",
         description: "Product already saved",
@@ -164,6 +174,13 @@ const CreateProduct = () => {
                       <div key={field.id} className="flex gap-4">
                         <FormField
                           control={form.control}
+                          name={`variant_set.${index}.id`}
+                          render={({ field }) => (
+                            <Input type="hidden" {...field} />
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
                           name={`variant_set.${index}.name`}
                           render={({ field }) => (
                             <FormItem className="w-full">
@@ -238,4 +255,4 @@ const CreateProduct = () => {
   )
 }
 
-export default CreateProduct
+export default EditProduct

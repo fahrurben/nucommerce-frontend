@@ -7,3 +7,4 @@ export const LOADING = 'loading'
 
 export const authUrl = '/token/'
 export const categoryUrl = '/categories/'
+export const productUrl = '/products/'

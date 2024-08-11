@@ -14,6 +14,7 @@ import Login from './routes/auth/login.jsx'
 import { Theme } from '@radix-ui/themes'
 import AuthProvider from './routes/AuthContext.jsx'
 import CategoryList from './routes/category/list.jsx'
+import CreateProduct from './routes/product/create.jsx'
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: 'categories/',
         element: <CategoryList />,
+      },
+      {
+        path: 'product/create/',
+        element: <CreateProduct />,
       },
     ],
   },

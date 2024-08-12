@@ -38,6 +38,7 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { useToast } from "@/components/ui/use-toast"
+import UploadFormField from '../../components/form/UploadFormField.jsx'
 
 const variantSchema = z.object({
   id: z.number().optional(),
@@ -156,8 +157,8 @@ const EditProduct = () => {
                 <SelectFormField form={form} name="category_id" label="Category"
                                  placeholder="Select Category"
                                  items={categories} required={true}/>
-                <TextFormField form={form} name="thumbnail" label="Thumbnail"
-                               required={true}/>
+                <UploadFormField form={form} name="thumbnail" label="Thumbnail"
+                                 required={true} />
                 <TextFormField form={form} name="description"
                                label="Description"/>
 
@@ -171,7 +172,7 @@ const EditProduct = () => {
                   </CardHeader>
                   <CardContent>
                     {fields.map((field, index) => (
-                      <div key={field.id} className="flex gap-4">
+                      <div key={field.id} className="flex gap-4 my-4">
                         <FormField
                           control={form.control}
                           name={`variant_set.${index}.id`}

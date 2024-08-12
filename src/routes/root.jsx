@@ -8,7 +8,7 @@ import MenuItem from '../components/common/MenuItem.jsx'
 
 const Root = () => {
   const navigate = useNavigate()
-  const { tokenDetails } = useAuth()
+  const { tokenDetails, setTokenDetails } = useAuth()
   const { token, expired } = tokenDetails
   const menuItemsData = [
     {
@@ -32,6 +32,21 @@ const Root = () => {
     navigate('/login')
   }
 
+  useEffect(() => {
+    if (!token || moment().valueOf() >= expired) {
+      // If not authenticated, redirect to the login page
+      navigate('/login')
+    }
+  }, [])
+
+  const logout = () => {
+    setTokenDetails({
+      token: null,
+      expired: moment().valueOf()
+    })
+    navigate('/login')
+  }
+
   return (
     <div className="flex-row w-full">
       <div className="bg-blue-950 text-white px-8 py-4 font-bold flex">
@@ -45,6 +60,7 @@ const Root = () => {
             })
           }
         </ul>
+        <a href="#" className="ml-auto" onClick={logout}>Logout</a>
       </div>
       <Outlet/>
       <Toaster/>
